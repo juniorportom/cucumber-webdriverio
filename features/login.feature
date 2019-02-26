@@ -10,6 +10,7 @@ Scenario Outline: Login failed with wrong inputs
     Then I expect to see <error>
 
     Examples:
-      | email            | password | error                    |
-      |                  |          | Ingresa una contraseña   |
-      | miso@gmail.com   |    1234  | Upss! El correo y        |
+      | email              | password | error                    |
+      |                    |          | Ingresa una contraseña   |
+      | miso@gmail.com     |    1234  | Upss! El correo y        |
+      | prueba@example.com | 12345678 | LOGIN_SUCESS             |

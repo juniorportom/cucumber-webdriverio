@@ -38,21 +38,27 @@ defineSupportCode(({Given, When, Then}) => {
 
 
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {
-    var cajaLogIn = browser.element('.cajaLogIn');
+     var cajaLogIn = browser.element('.cajaLogIn');
 
-   var mailInput = cajaLogIn.element('input[name="correo"]');
-   mailInput.click();
-   mailInput.keys(email);
+    var mailInput = cajaLogIn.element('input[name="correo"]');
+    mailInput.click();
+    mailInput.keys(email);
 
-   var passwordInput = cajaLogIn.element('input[name="password"]');
-   passwordInput.click();
-   passwordInput.keys(password)
+    var passwordInput = cajaLogIn.element('input[name="password"]');
+    passwordInput.click();
+    passwordInput.keys(password)
 });
 
 Then('I expect to see {string}', error => {
-   browser.waitForVisible('.aviso.alert.alert-danger', 5000);
-   var alertText = browser.element('.aviso.alert.alert-danger').getText();
-   expect(alertText).to.include(error);
+  if(error != 'LOGIN_SUCESS'){
+    browser.waitForVisible('.aviso.alert.alert-danger', 5000);
+    var alertText = browser.element('.aviso.alert.alert-danger').getText();
+    expect(alertText).to.include(error);
+  }else{
+    browser.waitForVisible('button[id=cuenta]', 5000);
+    expect(browser.isVisible('button[id=cuenta]')).to.be.equal(true);
+  }
+    
 });
 
 });
