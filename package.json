@@ -9,6 +9,7 @@
   "author": "Sebastian Sierra",
   "license": "ISC",
   "devDependencies": {
+    "@wdio/cli": "^5.6.2",
     "chai": "^4.1.2",
     "wdio-cucumber-framework": "^1.0.2",
     "wdio-selenium-standalone-service": "0.0.9",
