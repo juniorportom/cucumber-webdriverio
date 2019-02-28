@@ -10,7 +10,7 @@ defineSupportCode(({Given, When, Then}) => {
     }
   });
 
- /* When('I open the login screen', () => {
+  When('I open the login screen', () => {
     browser.waitForVisible('button=Ingresar', 5000);
     browser.click('button=Ingresar');
   });
@@ -42,14 +42,11 @@ Then('I expect to see {string}', error => {
     expect(browser.isVisible('button[id=cuenta]')).to.be.equal(true);
   }
     
-});*/
+});
 
 // Registrar estudiante
 
 When('I open the register screen', () => {
-  //if(browser.isVisible('.modal-body')){
-  //  browser.waitForVisible('button=Ingresar', 5000);
-  //}
     browser.waitForVisible('button=Ingresar', 5000);
     browser.click('button=Ingresar');
   });
@@ -69,13 +66,18 @@ When('I open the register screen', () => {
     var emailInput = cajaSingUp.element('input[name="correo"]');
     emailInput.click();
     emailInput.keys(email);
-    if(!program==''){
+    if(program!=''){
       cajaSingUp.element('select[name="idPrograma"]').selectByIndex(program);  
     }
 
     var passwordInput = cajaSingUp.element('input[name="password"]');
-    passwordInput.click();
-    passwordInput.keys(password);
+      passwordInput.click();
+    if(password!=''){      
+      passwordInput.keys(password);
+    }else{
+      passwordInput.clear();
+    }
+    
     if(accept == 'true'){
       cajaSingUp.element('input[name="acepta"]').click();
     }
@@ -103,9 +105,21 @@ Then('I expect to receive {string}', error => {
         var lastnameInput = cajaSingUp.element('input[name="apellido"]');
         expect(lastnameInput.getText()).to.be.equal('');
       }else{
-        browser.waitForVisible('.aviso.alert.alert-danger', 5000);
-        var alertText = browser.element('.aviso.alert.alert-danger').getText();
-        expect(alertText).to.include(error);
+        if(error = 'exitoso'){
+          browser.waitForVisible('.sweet-alert', 5000);
+          var alertText = browser.element('.sweet-alert').element('h2').getText();
+          expect(alertText).to.include(error);
+        }else{
+          if(error == 'error activando'){
+            browser.waitForVisible('.sweet-alert', 5000);
+            var alertText = browser.element('.sweet-alert').element('h2').getText();
+            expect(alertText).to.include(error);
+          }else{
+            browser.waitForVisible('.aviso.alert.alert-danger', 5000);
+            var alertText = browser.element('.aviso.alert.alert-danger').getText();
+            expect(alertText).to.include(error);
+          }          
+        }        
       }      
     }    
   }    
