@@ -1,2 +1,4 @@
 /node_modules
 /errorShots
+/calabash/.calabash_settings
+/calabash/*.apk
